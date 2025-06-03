@@ -22,7 +22,7 @@ jobs:
     - name: Build WAR with Maven
       run: mvn clean package -DskipTests
 
-    - name: Upload WAR artifact
+    - name: Upload WAR artifacts
       uses: actions/upload-artifact@v4
       with:
         name: springboot-war
