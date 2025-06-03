@@ -1,0 +1,29 @@
+name: Build WAR on Push
+
+on:
+  push:
+    branches:
+      - main  # change to 'master' if that's your main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'       # Temurin is the open-source version of Java
+        java-version: '23'            # Use Java 23 to match your system
+
+    - name: Build WAR with Maven
+      run: mvn clean package -DskipTests
+
+    - name: Upload WAR artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: springboot-war
+        path: target/*.war
